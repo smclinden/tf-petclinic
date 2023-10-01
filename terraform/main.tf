@@ -66,7 +66,7 @@ resource "azurerm_service_plan" "main" {
   reserved            = true
 
   sku {
-    tier = "Standard"
+    tier = "Free"
     size = "S1"
   }
 }
@@ -80,7 +80,8 @@ resource "azurerm_app_service" "main" {
   https_only          = true
 
   site_config {
-    always_on        = true
+    always_on        = lower(var.app_svc_plan_sku_tier) == "free" ? false : true
+    use_32_bit_worker_process = lower(var.app_svc_plan_sku_tier) == "free" ? true : false
     linux_fx_version = "JAVA|8-jre8"
   }
 
