@@ -58,7 +58,7 @@ resource "azurerm_mysql_firewall_rule" "main" {
 }
 
 # This creates the plan that the service use
-resource "azurerm_app_service_plan" "main" {
+resource "azurerm_service_plan" "main" {
   name                = "${var.application_name}-plan"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
@@ -66,8 +66,8 @@ resource "azurerm_app_service_plan" "main" {
   reserved            = true
 
   sku {
-    tier = "PremiumV2"
-    size = "P1v2"
+    tier = "Standard"
+    size = "S1"
   }
 }
 
